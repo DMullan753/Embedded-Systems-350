@@ -4,12 +4,16 @@ using namespace uop_msb;
 #define WAIT_TIME_MS 500 
 DigitalOut led1(LED1);
 
+DigitalOut Backlight(LCD_BKL_PIN);
+
 // main() runs in its own thread in the OS
 LCD_16X2_DISPLAY lcd;
 EnvSensor sensor;
 
 int main()
 {
+    Backlight = 1;
+
     lcd.cls();
     lcd.locate(0, 0);
     lcd.printf("Welcome to the");
