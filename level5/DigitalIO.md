@@ -11,7 +11,8 @@ This is a deeper dive into digital IO with Mbed OS. Before we start, you should 
 >
 > Alternatively, the PDF file is located in the folder `Hardware\ModuleSupportBoard`
 
-**You will need to make frequent reference to the schematics**. At this level, we are encouraging the students to read the schematics and workout for themselves how to write software to control it.
+**You will need to make frequent reference to the schematics**. At this level, we are encouraging the students to read the schematics and workout for themselves 
+how to write software to control it.
 
 ## Related Lectures
 For Plymouth students, the relevant lecture slides are here:
@@ -28,7 +29,8 @@ For Plymouth students, the relevant lecture slides are here:
 The most familiar of interfaces is probably the General Purpose Input-Output (GPIO). 
 
 ### Task 201 - Push Pull
-For a push-pull output, we use the `DigitalOut` **class**. What is a class? It is a custom data type (as opposed to a built in data type, such as `int` and `float`). We will discuss in detail in level 4. For now, let's look at an example using the "traffic lights".
+For a push-pull output, we use the `DigitalOut` **class**. What is a class? It is a custom data type (as opposed to a built in data type, such as `int` and `float`). 
+We will discuss in detail in level 4. For now, let's look at an example using the "traffic lights".
 
 The code in Task-201 is shown below
 
@@ -81,7 +83,8 @@ In the example above, pins `PC_2`, `PC_3` and `PC_6` were configured as push-pul
 > Do all the LEDs change at the same time? Why?
 
 ### TASK-202-`BusOut`
-In the previous example, we drive three LEDs using push-pull GPIOs. For the purpose of this task, this technique was fine. However, each LED state had to be controlled independently. Another option is to control a group of LEDs using the `BusOut` class.
+In the previous example, we drive three LEDs using push-pull GPIOs. For the purpose of this task, this technique was fine. However, each LED state had to be 
+controlled independently. Another option is to control a group of LEDs using the `BusOut` class.
 
 The code in Task-202 is shown below:
 
@@ -133,16 +136,21 @@ We can set `leds` to a decimal value,
 >
 > We can set the value of `leds` to an integer. Which LED represents the least significant bit of this integer?
 >
-> When we declare `leds`, a number of parameters are provided. These are pin names. Are the parameters specified least significant bit first, or most significant bit first? Why do you think this might be?
+> When we declare `leds`, a number of parameters are provided. These are pin names. Are the parameters specified least significant bit first, or most significant 
+bit first? Why do you think this might be?
 >
-> Read the [documentation for `BusOut`](https://os.mbed.com/docs/mbed-os/v6.3/apis/busout.html). You may need to change the version to match the code. How many pins can you control at once?
+> Read the [documentation for `BusOut`](https://os.mbed.com/docs/mbed-os/v6.3/apis/busout.html). You may need to change the version to match the code. How many 
+pins can you control at once?
 >
 > In step 6 above we added some additional pins. Are all the pins on the same port? Explain.
 
-With `BusOut` you can control up to 16 pins from _any_ port. It is intended to be flexible. Under the hood, `BusOut` simply maintains an array of `DigitalOut` objects. The code iterates through the array, changing each output in turn. This means the output pins _cannot_ change simultaneously. There will therefore be a small amount of _timing skew_ between them. This is the trade-off for convenience.
+With `BusOut` you can control up to 16 pins from _any_ port. It is intended to be flexible. Under the hood, `BusOut` simply maintains an array of `DigitalOut` 
+objects. The code iterates through the array, changing each output in turn. This means the output pins _cannot_ change simultaneously. There will therefore be a 
+small amount of _timing skew_ between them. This is the trade-off for convenience.
 
 ### TASK-203-`PortOut`
-Unlike `BusOut`, the `PortOut` class can only control pins from the same port. The reason you might want to do this is performance (especially if timing-skew is an issue).
+Unlike `BusOut`, the `PortOut` class can only control pins from the same port. The reason you might want to do this is performance (especially if timing-skew is 
+an issue).
 
 ```C++
 #include "mbed.h"
@@ -175,7 +183,8 @@ int main()
 | 4. Which bits in LEDMASK are set to `1` and why? (see the documentation on `PortOut`) |
 | 5. Change `LEDMASK` to `0b0000000001001000`. What effect does this have and why? |
 | 6. Now modify the code to also flash the on-board LEDs. The pin labels are `PB_0`, `PB_7` and `PB_14`. _hint_: You will need another instance of `PortOut` | 
-| 7. Modify the code to flash the LEDs using the XOR operator `^`. Your while-loop should only need two lines of code within the code block. **<p title="leds = leds ^ LEDMASK; wait_us(500000);">Hover here to see the solution</p>** |
+| 7. Modify the code to flash the LEDs using the XOR operator `^`. Your while-loop should only need two lines of code within the code block. 
+**<p title="leds = leds ^ LEDMASK; wait_us(500000);">Hover here to see the solution</p>** |
 | |
 
 We saw in this exercise that `PortOut` is used to set outputs bits on a particular port. All pins will change simultaneously.
@@ -224,7 +233,8 @@ To better understand this, it is helpful to look at the electronics for a GPIO p
 
 <figure>
 <img src="https://os.mbed.com/media/uploads/tbjazic/05outputs.png" width="400px">
-<figcaption>Digital outputs of a microcontroller can be configured as standard (typically push-pull) or open-drain outputs. Source: https://os.mbed.com/media/uploads/tbjazic/05outputs.png</figcaption>
+<figcaption>Digital outputs of a microcontroller can be configured as standard (typically push-pull) or open-drain outputs. Source: 
+https://os.mbed.com/media/uploads/tbjazic/05outputs.png</figcaption>
 </figure>
 
 Note how in the open-drain configuration, there is no "push" transistor (in reality, both transistors would be present with the upper one held off). 
@@ -237,7 +247,8 @@ It should be stated that different devices can offer different configurations. Y
 
 > **NOTE**
 >
-> Some devices also include the option to include internal Pull-Up and Pull-Down Resistors. This can save external circuitry, although we need to be careful about current limits. We will not be using this and not all devices provide this option.
+> Some devices also include the option to include internal Pull-Up and Pull-Down Resistors. This can save external circuitry, although we need to be careful 
+about current limits. We will not be using this and not all devices provide this option.
 
 In the sample code below, the output pin is initialised as `OpenDrainNoPull`:
 
@@ -418,28 +429,33 @@ Using the online documentation, you can read about these types.
 
 | **TASK 206** | - |
 | --- | --- |
-| 1. | Watch [this video](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=409e91ba-e2ef-42b1-8cc8-ac4e010b2022) to see how to create a new "bare-metal" project |
+| 1. | Watch [this video](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=409e91ba-e2ef-42b1-8cc8-ac4e010b2022) to see how to create a new 
+"bare-metal" project |
 | 2. | Create a new project Task 206 and copy the code from the previous task. |
 | 3. | Now run the code in debug mode and check you can step through each line |
 | 4. | Modify the code such that when BOTH SW4 and SW5 are held down, all three LEDs light. |
 | 5. | Now modify the solution in 4 to use `BusOut` for the LEDs (in place of DigitalOut). Test to ensure it works. |
-| 8. | Modify the solution in 5 to use [BusInOut](https://os.mbed.com/docs/mbed-os/v6.3/apis/businout.html) in place of DigitalInOut (for the switches). Remember to configure it as an input. Again, test. |
+| 8. | Modify the solution in 5 to use [BusInOut](https://os.mbed.com/docs/mbed-os/v6.3/apis/businout.html) in place of DigitalInOut (for the switches). 
+Remember to configure it as an input. Again, test. |
 | 9. | Did you manage to make your code shorter? |
 | 10. | Now compare your code to the solution provided | 
 | | |
 
 ## Timers
-One of the most important and commonly used on-chip peripherals is the **hardware timer**. Different devices have a different number of timers, and they are not standard. However, Mbed-os _abstracts_ us from the hardware specifics and allows us to use hardware timers with ease.
+One of the most important and commonly used on-chip peripherals is the **hardware timer**. Different devices have a different number of timers, and they 
+are not standard. However, Mbed-os _abstracts_ us from the hardware specifics and allows us to use hardware timers with ease.
 
 > Hardware abstraction clearly has benefits in terms of making code simple and portable, but can you think of any disadvantages?
 
 There are a few notable types that use hardware timers, including the following:
 
 * `Timer` - Creates a timer object which can be started, stopped and read (among other things).
-* `Ticker` - Used to create a timer that fires an interrupt on specific intervals. This is an important topic which we will cover these in more detail later in the course.
+* `Ticker` - Used to create a timer that fires an interrupt on specific intervals. This is an important topic which we will cover these in more detail 
+later in the course.
 * `PwmOut` - A digital output that autonomously pulses high and low at a specified rate and duty cycle.
 
-> Before Mbed-OS 6, the `Timer` type was much simpler to use. To keep that simplicity (for now), we will use a custom `Timer` type called `TimerCompat`. This is just Timer with some extra functions added.
+> Before Mbed-OS 6, the `Timer` type was much simpler to use. To keep that simplicity (for now), we will use a custom `Timer` type called `TimerCompat`. 
+This is just Timer with some extra functions added.
 >
 > You will find the code for this in the header file (in case you are curious). 
 
@@ -510,7 +526,8 @@ Further down in the main while-loop, we see some code that waits for a switch pr
 ```C++
 while (SW_BLUE == 0);
 ```
-The switch has no memory / buffering capacity, so we created this **busy-wait loop** and **blocked** the program until the switch was pressed. By doing this at such speed, the chance of missing a switch press/release is extremely small!
+The switch has no memory / buffering capacity, so we created this **busy-wait loop** and **blocked** the program until the switch was pressed. By doing this 
+at such speed, the chance of missing a switch press/release is extremely small!
 
 The code then waits on a timer (to create a delay)
 
@@ -520,13 +537,15 @@ while (tmr1.elapsed_time() < 500ms);
 ```
 
 ### Busy-waiting and BLOCKING
-Both of these are examples of [busy-wait loops](https://en.wikipedia.org/wiki/Busy_waiting). This is characterised by a very rapid and repeated polling of a single hardware device until a specific state has been reached.
+Both of these are examples of [busy-wait loops](https://en.wikipedia.org/wiki/Busy_waiting). This is characterised by a very rapid and repeated polling of a 
+single hardware device until a specific state has been reached.
 
 > Busy-waiting, also known as **spinning**, is something that is generally avoided if possible partly because it wastes CPU cycles and power. 
 
 Busy-waiting / spinning is _one_ of the ways our code can become **blocked**. In fact, one of the most important concepts to grasp is the notion of **blocking**
 
-> _A process/program that is **blocked** is one that is waiting for some event, such as a resource becoming available or the completion of an I/O operation, before proceeding further instructions._
+> _A process/program that is **blocked** is one that is waiting for some event, such as a resource becoming available or the completion of an I/O operation, 
+before proceeding further instructions._
 
 In the examples above, the I/O operations were related to a GPIO input (connected to a switch) and a hardware timer. 
 
@@ -539,7 +558,8 @@ In the examples above, the I/O operations were related to a GPIO input (connecte
 | |
 
 ### Using `wait`
-Implementing delays is a very common requirement in embedded software development. Instead of writing code to read Timers, we have a convenient group of functions in Mbed to simplify the process of blocking on a timer.
+Implementing delays is a very common requirement in embedded software development. Instead of writing code to read Timers, we have a convenient group of functions 
+in Mbed to simplify the process of blocking on a timer.
 
 ```C++
 wait_us(1000);    //1000 uS == 1ms
@@ -558,14 +578,17 @@ Hopefully, you code is a little shorter and easier to read now.
 >
 >Currently, we are using "bare-metal" Mbed, which is a smaller and more lightweight version of the full implementation.
 >
-> Later in the course we will switch to the full implementation and begin to use the Real Time Operating System (RTOS) features, where some different wait functions will be used. These work quite differently. 
+> Later in the course we will switch to the full implementation and begin to use the Real Time Operating System (RTOS) features, where some different wait 
+functions will be used. These work quite differently. 
 
 ### Brief Reflection
 
-Already it was noted that blocking on busy-wait loops are wasteful of CPU cycles and power, but there is another problem with blocking in this way, and the next exercise should hopefully highlight this:
+Already it was noted that blocking on busy-wait loops are wasteful of CPU cycles and power, but there is another problem with blocking in this way, and the 
+next exercise should hopefully highlight this:
 
 ## Two Switch Challenge
-Note how these examples are simple. They follow the basic principle of a sequential machine, with code running in a strict sequence. However, this can soon lead to problems when blocking devices are added to the task.
+Note how these examples are simple. They follow the basic principle of a sequential machine, with code running in a strict sequence. However, this can soon 
+lead to problems when blocking devices are added to the task.
 
 Given what we now know about blocking, let us now see how it can cause significant complexity in out software.
 
@@ -603,14 +626,16 @@ Tips:
 > Finally, consider how you will keep the yellow LED flashing.
 
 
-Don't spend too much time on this. If you can find a way to solve it, then great. If you end up with a tangled mess, that's ok as well. The important point is to understand the problem.
+Don't spend too much time on this. If you can find a way to solve it, then great. If you end up with a tangled mess, that's ok as well. The important point 
+is to understand the problem.
 
 > A solution is provided - do NOT peek at this until you have given this task a try. It is not the only solution of course, but it is one worth studying carefully.
 
 As we will discover later, we can simplify our code again with some new techniques.
 
 ## Terminal Input
-Another commonly used peripheral is the UART (also known as a Serial Port). Mbed compliant boards connect one of the serial ports to the host PC via a "serial over USB" link. This is very useful for data logging and debugging applications.
+Another commonly used peripheral is the UART (also known as a Serial Port). Mbed compliant boards connect one of the serial ports to the host PC via a 
+"serial over USB" link. This is very useful for data logging and debugging applications.
 
 | **TASK 112** | Revision |
 | --- | --- |
@@ -619,14 +644,16 @@ Another commonly used peripheral is the UART (also known as a Serial Port). Mbed
 | 3. | Step through this example code. You will need to type responses into the serial monitor at certain points. Establish where blocking may be taking place. |
 | 4. | Now go to Task-208-Soln. Build and run the code. |
 | 5. | Now use the debugger to step through the code to help you understand it |
-| 6. | Now add support for the BLUE button. Add some code such that when the user presses the BLUE button, they can type an integer value into the serial terminal and set the flash speed for the yellow LED. |
+| 6. | Now add support for the BLUE button. Add some code such that when the user presses the BLUE button, they can type an integer value into the serial 
+terminal and set the flash speed for the yellow LED. |
 | 7. | Is it possible to keep the yellow LED flashing all the time? Explain.  | 
 | |
 
 ## Stretch Task (Optional)
 For those that want to push a little deeper, you might want to consider the following.
 
-In the previous example, we observed the blocking nature of the serial port (UART). Unless we know a few more techniques, this is seemingly a hurdle. However, it is possible to access the serial interface in non-blocking mode. 
+In the previous example, we observed the blocking nature of the serial port (UART). Unless we know a few more techniques, this is seemingly a hurdle. 
+However, it is possible to access the serial interface in non-blocking mode. 
 
 ```C++
     BufferedSerial pc(USBTX, USBRX);
@@ -646,14 +673,16 @@ In the previous example, we observed the blocking nature of the serial port (UAR
 **Stretch Task** | Non Blocking Serial |
 | --- | --- |
 | 1. | Reattempt Task 112 to read the serial terminal in non-blocking mode |
-| - | For this, you will need to read the characters manually and then convert the result to an integer. Consider reading them into a character array and using `stoi` function to concert the string to a decimal. Note that `stoi` expects a zero as an end of string marker.
+| - | For this, you will need to read the characters manually and then convert the result to an integer. Consider reading them into a character array and 
+using `stoi` function to concert the string to a decimal. Note that `stoi` expects a zero as an end of string marker.
 
 ## Quiz
 Please click the following link and answer all questions as best you can.
 
 https://dle.plymouth.ac.uk/mod/quiz/view.php?id=980380
 
-It is very important you complete the quiz. These are formative, and do not contribute to your module mark. However, they provide valuable feedback for both students and tutors. They are also used as evidence of engagement. 
+It is very important you complete the quiz. These are formative, and do not contribute to your module mark. However, they provide valuable feedback for both 
+students and tutors. They are also used as evidence of engagement. 
 
 ---
 
