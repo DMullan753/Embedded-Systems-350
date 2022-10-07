@@ -2,10 +2,10 @@
 using namespace uop_msb;
 
 // Hardware Definitions
-#define TRAF_RED1_PIN PC_2
+#define TRAF_RED1_PIN LED2
 
 // Inputs
-DigitalIn SW_BLUE(USER_BUTTON);
+DigitalIn SW_BLUE(BUTTON1);
 
 // Outputs
 DigitalOut ledRed(TRAF_RED1_PIN);
@@ -17,7 +17,7 @@ int main()
 {
     //Time how long it takes to perform a printf
     tmr1.start();
-    printf("Hello World!\n");
+    printf("Hello World! How are you?\n");
     tmr1.stop();
 
     //Print out how long it took

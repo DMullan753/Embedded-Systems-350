@@ -3,7 +3,7 @@
 using namespace uop_msb;
 
 // Inputs
-DigitalIn SWB(USER_BUTTON); // THIS IS THE BLUE BUTTON
+DigitalIn SWB(BTN3_PIN); // THIS IS THE BLUE BUTTON
 DigitalIn SW2(BTN1_PIN);    // SW2
 DigitalIn SW3(BTN2_PIN);    // SW3
 
