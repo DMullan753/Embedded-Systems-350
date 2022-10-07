@@ -1,0 +1,6 @@
+#include "uop_msb.h"
+using namespace uop_msb;
+
+DigitalOut BackLight(LCD_BKL_PIN);
+
+BackLight = 1;

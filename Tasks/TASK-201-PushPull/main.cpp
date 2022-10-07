@@ -13,11 +13,11 @@ DigitalOut red(TRAF_RED1_PIN,1);
 int main()
 {
     while (true) {
-        red = 0;
+        red = 1;
         yel = 1;
         grn = 1;
         wait_us(500000);
-        red = 1;
+        red = 0;
         yel = 0;
         grn = 0;  
         wait_us(500000);    
