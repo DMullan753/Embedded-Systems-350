@@ -1,6 +1,8 @@
 #include "uop_msb.h"
 using namespace uop_msb;
 
+DigitalOut BackLight(LCD_BKL_PIN);
+
 #define WAIT_TIME_MS 500 
 DigitalOut led1(LED1);
 
@@ -10,6 +12,7 @@ EnvSensor sensor;
 
 int main()
 {
+    BackLight = 1;
     lcd.cls();
     lcd.locate(0, 0);
     lcd.printf("Welcome to the");
@@ -24,7 +27,7 @@ int main()
         float p = sensor.getPressure();
         lcd.cls();
         lcd.locate(0, 0);
-        lcd.printf("Temp:     %4.1f", t);
+        lcd.printf("Temp: %4.1f", t);
         lcd.locate(1, 0);
         lcd.printf("Pressure: %4.1f", p);
     }
