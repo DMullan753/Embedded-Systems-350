@@ -32,7 +32,8 @@ ComplexNumber_C complexNegate(const ComplexNumber_C a, const ComplexNumber_C b) 
 
 ComplexNumber_C complexSubtract(const ComplexNumber_C a, const ComplexNumber_C b) {
     ComplexNumber_C y = a;
-
+    y.real = y.real - b.real;
+    y.imag = y.imag - b.imag;
     return y;
 }
 
@@ -76,6 +77,9 @@ int main() {
     complexDisplay("Conjugate p", Conjugatep);
     ComplexNumber_C Conjugateq = complexConjugateq(p, q);
     complexDisplay("Conjugate q", Conjugateq);
+
+    ComplexNumber_C subtract = complexSubtract(p, q);
+    complexDisplay("p-q", subtract);
     
     while (true) {
     }
