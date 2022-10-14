@@ -12,10 +12,16 @@ ComplexNumber_C complexAdd(const ComplexNumber_C a, const ComplexNumber_C b) {
     return y;
 }
 
-ComplexNumber_C complexConjugate(const ComplexNumber_C a, const ComplexNumber_C b) {
-    ComplexNumber_C y = a;
+ComplexNumber_C complexConjugatep(const ComplexNumber_C a, const ComplexNumber_C b) {
+    ComplexNumber_C Conjugatep = a;
+    Conjugatep.imag = (-1 * Conjugatep.imag);
+    return Conjugatep; 
+}
 
-    return y;
+ComplexNumber_C complexConjugateq(const ComplexNumber_C a, const ComplexNumber_C b) {
+    ComplexNumber_C Conjugateq = b;
+    Conjugateq.imag = (-1 * Conjugateq.imag);    
+    return Conjugateq;  
 }
 
 ComplexNumber_C complexNegate(const ComplexNumber_C a, const ComplexNumber_C b) {
@@ -66,6 +72,10 @@ int main() {
     ComplexNumber_C sum = complexAdd(p, q);
     complexDisplay("p+q", sum);
 
+    ComplexNumber_C Conjugatep = complexConjugatep(p, q);
+    complexDisplay("Conjugate p", Conjugatep);
+    ComplexNumber_C Conjugateq = complexConjugateq(p, q);
+    complexDisplay("Conjugate q", Conjugateq);
     
     while (true) {
     }
